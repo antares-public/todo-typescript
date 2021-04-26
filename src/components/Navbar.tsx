@@ -4,7 +4,7 @@ export const Navbar: React.FC = () => (
   <nav>
     <div className="nav-wrapper black px1">
       <a href="/" className="brand-logo">
-        React + Typescript
+        Typescript
       </a>
       <ul className="right hide-on-med-and-down">
         <li>
