@@ -4,6 +4,8 @@ import { ToDoForm } from "./components/TodoForm";
 import { TodoList } from "./components/TodoList";
 import { ITodo } from "./interfaces";
 
+declare var confirm: (question: string) => boolean;
+
 const App: React.FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
@@ -15,13 +17,35 @@ const App: React.FC = () => {
     };
     setTodos((prev) => [newTodo, ...prev]);
   };
+
+  const toggleHandler = (id: number) => {
+    setTodos((prev) =>
+      prev.map((todo) => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      })
+    );
+  };
+
+  const removeHandler = (id: number) => {
+    const shouldRemove = confirm("Are you sure you want to remove?");
+    if (shouldRemove) {
+      setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    }
+  };
   return (
     <>
       <Navbar />
       <div className="container">
         <ToDoForm onAdd={addHandler} />
 
-        <TodoList todos={todos} />
+        <TodoList
+          todos={todos}
+          onToggle={toggleHandler}
+          onRemove={removeHandler}
+        />
       </div>
     </>
   );
