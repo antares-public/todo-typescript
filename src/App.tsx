@@ -1,63 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
-import { ToDoForm } from "./components/TodoForm";
-import { TodoList } from "./components/TodoList";
-import { ITodo } from "./interfaces";
-
-declare var confirm: (question: string) => boolean;
+import { AboutPage } from "./pages/AboutPage";
+import { TodosPage } from "./pages/TodosPage";
 
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<ITodo[]>([]);
-
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("todos") || "[]") as ITodo[];
-
-    setTodos(saved);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
-
-  const addHandler = (title: string) => {
-    const newTodo: ITodo = {
-      title: title,
-      id: Date.now(),
-      completed: false,
-    };
-    setTodos((prev) => [newTodo, ...prev]);
-  };
-
-  const toggleHandler = (id: number) => {
-    setTodos((prev) =>
-      prev.map((todo) => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      })
-    );
-  };
-
-  const removeHandler = (id: number) => {
-    const shouldRemove = confirm("Are you sure you want to remove?");
-    if (shouldRemove) {
-      setTodos((prev) => prev.filter((todo) => todo.id !== id));
-    }
-  };
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
       <div className="container">
-        <ToDoForm onAdd={addHandler} />
-
-        <TodoList
-          todos={todos}
-          onToggle={toggleHandler}
-          onRemove={removeHandler}
-        />
+        <Switch>
+          <Route component={TodosPage} path="/" exact />
+          <Route component={AboutPage} path="/about" />
+        </Switch>
       </div>
-    </>
+    </BrowserRouter>
   );
 };
 
