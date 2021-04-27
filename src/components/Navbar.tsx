@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => (
       </a>
       <ul className="right hide-on-med-and-down">
         <li>
-          <NavLink to="/">ToDo</NavLink>
+          <NavLink to="/todo-typescript">ToDo</NavLink>
         </li>
         <li>
           <NavLink to="/about">Info</NavLink>
