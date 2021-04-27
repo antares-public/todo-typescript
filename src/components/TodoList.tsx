@@ -26,7 +26,7 @@ export const TodoList: React.FC<TodoListProps> = ({
         const classes = ["todo"];
 
         if (todo.completed) {
-          classes.push("completed");
+          classes.push("complited");
         }
         return (
           <li className={classes.join(" ")} key={todo.id}>
