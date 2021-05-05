@@ -7,7 +7,7 @@ export const AboutPage: React.FC = () => {
     <>
       <h1>Information</h1>
       <p>At vero eos et accusamus et iusto odio dignissimos ducimus.</p>
-      <button className="btn" onClick={() => history.push("/")}>
+      <button className="btn" onClick={() => history.push("/todo-typescript")}>
         Back
       </button>
     </>
